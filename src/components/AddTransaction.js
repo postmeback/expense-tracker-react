@@ -1,6 +1,8 @@
 
 import { useState, useContext } from "react"
 import { GlobalContext } from "../context/GlobalState";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const AddTransaction = () => {
 
@@ -12,6 +14,18 @@ const {addTransaction} = useContext(GlobalContext);
 const onSubmit = e => {
     e.preventDefault();
 
+    if (text.trim() === "") {
+        // Text is empty or contains only whitespace
+        toast.error("Please enter a valid text.");
+        return;
+      }
+
+    if (amount <= 0) {
+        // Amount is less than or equal to 0
+        toast.error("Please enter a valid amount greater than 0.");
+        return;
+      }
+
     const newTransaction = {
         id : Math.floor(Math.random() * 100000000),
         text,
@@ -19,11 +33,14 @@ const onSubmit = e => {
     }
 
     addTransaction(newTransaction);
+
+    setText("");
+    setAmount(0);
 }
 
     return(
         <>
-            <h3>
+         <ToastContainer />
                 <form onSubmit={onSubmit}>
                     <div className="form-control">
                         <label htmlFor="text">Text</label>
@@ -41,7 +58,6 @@ const onSubmit = e => {
                     </div>
                     <button className="btn">Add transaction</button>
                 </form>
-            </h3>
         </>
     )
 }
