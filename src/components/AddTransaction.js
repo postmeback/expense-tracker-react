@@ -20,11 +20,11 @@ const onSubmit = e => {
         return;
       }
 
-    if (amount <= 0) {
-        // Amount is less than or equal to 0
-        toast.error("Please enter a valid amount greater than 0.");
-        return;
-      }
+    // if (amount <= 0) {
+    //     // Amount is less than or equal to 0
+    //     toast.error("Please enter a valid amount greater than 0.");
+    //     return;
+    //   }
 
     const newTransaction = {
         id : Math.floor(Math.random() * 100000000),
